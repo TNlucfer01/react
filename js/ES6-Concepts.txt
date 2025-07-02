@@ -1,0 +1,10 @@
+1.Let and const 
+2.Arrow function
+3.Spread operator and Rest operator
+4.Destructuring(Array and Object)
+5.Array methods(Map!,Filter!,Foreach,Includes,Find,Some etc..)
+6.String methods(toLowercase,toUppercase,trim etc..)
+7.Ternary operator
+8.Promises
+9.import and export - modules
+10.Template Literals

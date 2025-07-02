@@ -1,0 +1,12 @@
+1.intro to js
+2.variables
+3.datatypes
+4.let,var,const
+5.operator
+6.loops
+7.function(arrow function,constructor function)
+8.array
+9.objects
+10.events
+11.String
+
