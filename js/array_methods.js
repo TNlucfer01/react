@@ -1,6 +1,6 @@
 'use strict';
 
-array=[1,2,3,4,5,[6,7,8,4],9,0]
+let array=[1,2,3,4,5,[6,7,8,4],9,0]
 
 //array length
 console.log(array.length);
@@ -16,13 +16,11 @@ console.log(array.join("/"))
 
 
 //map
-a=()=>{
-   console.log("hello")
-}
-array.map(a)
+
 
 //filters
-
+let a =array.entries();
+console.log(a.next()+" this is the next place ")
 
 
 

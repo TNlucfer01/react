@@ -36,23 +36,27 @@ console.log(makePerson("Pankaj", "Bind"));
 //async arrow function 
 
 a2();
-//anonymous
+
 //IIFE
-//genrator
-/strange function
+
+//strange function
 let abcd=(a2(),a())
 console.log(abcd+"log")
 
 
-const obj = {
-    name: 'Aathi',
-    fun: function(){
-        console.log('hello', this.name)
-    },
-    arrowFun: () => {
-        console.log('test',this.name)
-    }
-}
+// const obj = {
+//     name: 'Aathi',
+//     fun: function(){
+//         console.log('hello', this.name)
+//     },
+//     arrowFun: () => {
+//         console.log('test',this.name)
+//     }
+// }
 
-obj.fun();
-obj.arrowFun()
+// obj.fun();
+// obj.arrowFun()
+
+
+import {a as test } from "./anonyms.js"
+test()

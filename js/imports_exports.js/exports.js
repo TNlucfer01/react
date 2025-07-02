@@ -1,8 +1,9 @@
-export function add(a,b){
+//  es6
+ function add(a,b){
     return a+b;
 }
 
-export function sub(a,b){
+ function sub(a,b){
     return a-b;
 }
 
@@ -11,4 +12,7 @@ let variable ={
     b:20
 }
 
-export default variable;
+// export default variable;
+
+//or 
+module.exports={add,sub,variable};

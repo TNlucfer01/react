@@ -74,3 +74,14 @@ console.log(abcd)
 let {add:{house:{tye:As}}}=obj
 
 console.log(As)
+
+function iterateSet() {
+    const mySet = new Set();
+    mySet.add("London");
+    mySet.add("Paris");
+    mySet.add("New York");
+
+    [...mySet].forEach(value => {
+        console.log(value);
+    });
+}
