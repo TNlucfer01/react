@@ -1,0 +1,1 @@
+document.getElementById("buttons").innerHTML+="<strong> hello </strong>"

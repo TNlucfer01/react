@@ -26,12 +26,12 @@ for(a in array12){
 for(a in array){
     document.writeln(array[a]);
 }
- a=array.instanceof("hello");
+ var a=array.instanceof("hello");
 document.writeln(a)
 a=BigInt64Array(array)
 
 
-    {/* why  this block is clearing the screen */
+    {/* why  this block is clearing the screen */}
     function hulkpowerup(a,b,c){
     let who=window.prompt(" who are you now? ")
     
@@ -53,7 +53,7 @@ a=BigInt64Array(array)
 obj2.newfunction=function(){
     return "hello world "+ "this is new function ";
 };
-document.getElementsById()
-let a =hulkpowerup.arguments
+document.getElementsById();
+a =hulkpowerup.arguments
 document.writeln(a)
 
