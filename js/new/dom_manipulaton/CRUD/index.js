@@ -1,67 +1,130 @@
 let items = [];
 
-// create
+// Create
 function create_item() {
-  let value = document.getElementById("input").value.trim();
+  const value = document.getElementById("input").value.trim();
   if (value === "") {
-    window.alert(" enter a valid name ");
-    debugger;
+    window.alert("Enter a valid name");
     return;
   }
-  items.push({
+
+  const newItem = {
     id: Date.now(),
     name: value,
-  });
-  render_items();
+  };
+  items.push(newItem);
+  render_single_item(newItem); // Render only the new item
+  document.getElementById("input").value = ""; // Clear input
+}
+// Render a single item (for additions)
+function render_single_item(item) {
+  const itemlist = document.getElementById("item-list");
+  const itemdiv = document.createElement("div");
+  itemdiv.className = "item";
+  itemdiv.dataset.id = item.id; // Store ID for event delegation
+
+  const span = document.createElement("span");
+  span.textContent = item.name;
+
+  const buttonContainer = document.createElement("div");
+  const editButton = document.createElement("input");
+  editButton.type = "button";
+  editButton.value = "Edit";
+  editButton.className = "edit"; // Use class instead of ID (IDs must be unique)
+
+  const deleteButton = document.createElement("input");
+  deleteButton.type = "button";
+  deleteButton.value = "Delete";
+  deleteButton.className = "delete"; // Use class instead of ID
+
+  buttonContainer.appendChild(editButton);
+  buttonContainer.appendChild(deleteButton);
+  itemdiv.appendChild(span);
+  itemdiv.appendChild(buttonContainer);
+  itemlist.appendChild(itemdiv);
 }
 
-// read
+// Initial or full render (used only when necessary, e.g., page load)
 function render_items() {
-  console.log("this is render_items");
-  //clear the screen
-  let itemlist = document.getElementById("item-list");
-  itemlist.innerHTML = "";
-
+  console.log("Rendering all items");
+  const itemlist = document.getElementById("item-list");
+  itemlist.innerHTML = ""; // Clear once
+  const fragment = document.createDocumentFragment(); // Batch DOM updates
   items.forEach((item) => {
-    //create the child
-    console.log(" this is inside the forloop" + item.name);
     const itemdiv = document.createElement("div");
     itemdiv.className = "item";
-    itemdiv.innerHTML = `<span>${item.name}</span>
-        <div>
-        <input type='button' id='edit' value='edit' onclick={update_items(${item.id})}>
-        <input type='button' id='delte' value='delete' onclick={delete_items(${item.id})}>
-        
-        </div>
-        `;
-    //display the print
-    itemlist.appendChild(itemdiv);
+    itemdiv.dataset.id = item.id;
+
+    const span = document.createElement("span");
+    span.textContent = item.name;
+
+    const buttonContainer = document.createElement("div");
+    const editButton = document.createElement("input");
+    editButton.type = "button";
+    editButton.value = "Edit";
+    editButton.className = "edit";
+
+    const deleteButton = document.createElement("input");
+    deleteButton.type = "button";
+    deleteButton.value = "Delete";
+    deleteButton.className = "delete";
+
+    buttonContainer.appendChild(editButton);
+    buttonContainer.appendChild(deleteButton);
+    itemdiv.appendChild(span);
+    itemdiv.appendChild(buttonContainer);
+    fragment.appendChild(itemdiv);
   });
+  itemlist.appendChild(fragment);
 }
 
-//update
+// Update
 function update_items(id) {
-  //get the item
-  const newfind = window.prompt(
-    "enter the new name",
-    items.find((item) => id === item.id).name
+  const item = items.find((item) => item.id === id);
+  if (!item) return;
+  const newName = window.prompt("Enter the new name", item.name);
+  if (newName === null || newName.trim() === "") return; // Cancel or empty input
+  items = items.map((item) =>
+    item.id === id ? { ...item, name: newName.trim() } : item
   );
-  console.log(newfind);
-  //edit the item
-  items = items.map((item) => {
-    return item.id === id ? { ...item, name: newfind } : item;
-  });
-  //render item
-  render_items();
+
+  // Update only the affected DOM element
+  const itemdiv = document.querySelector(`#item-list .item[data-id="${id}"]`);
+  if (itemdiv) {
+    itemdiv.querySelector("span").textContent = newName.trim();
+  }
 }
 
-// delete
+// Delete
 function delete_items(id) {
-  //select the item
-     if (confirm("Are you sure you want to delete this item?")) {
-          items = items.filter((item) => item.id !== id);
-          console.log(items)
-          render_items();
-        }
-  
+  if (window.confirm("Are you sure you want to delete this item?")) {
+    items = items.filter((item) => item.id !== id);
+    // Remove only the affected DOM element
+    const itemdiv = document.querySelector(`#item-list .item[data-id="${id}"]`);
+    if (itemdiv) {
+      itemdiv.remove();
+    }
+  }
 }
+// Event delegation for edit and delete buttons
+function setupEventDelegation() {
+  const itemlist = document.getElementById("item-list");
+  itemlist.addEventListener("click", (event) => {
+    const target = event.target;
+    const itemdiv = target.closest(".item");
+    if (!itemdiv) return;
+    const id = parseInt(itemdiv.dataset.id, 10);
+
+    if (target.classList.contains("edit")) {
+      update_items(id);
+    } else if (target.classList.contains("delete")) {
+      delete_items(id);
+    }
+  });
+}
+
+// Initialize
+document.addEventListener("DOMContentLoaded", () => {
+  setupEventDelegation();
+  render_items(); // Initial render for existing items
+});
