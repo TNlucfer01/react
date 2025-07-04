@@ -7,7 +7,6 @@ function create_item() {
     window.alert("Enter a valid name");
     return;
   }
-
   const newItem = {
     id: Date.now(),
     name: value,
@@ -106,6 +105,7 @@ function delete_items(id) {
     }
   }
 }
+
 // Event delegation for edit and delete buttons
 function setupEventDelegation() {
   const itemlist = document.getElementById("item-list");
@@ -114,7 +114,6 @@ function setupEventDelegation() {
     const itemdiv = target.closest(".item");
     if (!itemdiv) return;
     const id = parseInt(itemdiv.dataset.id, 10);
-
     if (target.classList.contains("edit")) {
       update_items(id);
     } else if (target.classList.contains("delete")) {
